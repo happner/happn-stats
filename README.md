@@ -1,0 +1,2 @@
+# xstats
+Lightweight application monitoring.
