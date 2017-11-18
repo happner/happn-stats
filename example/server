@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+
+var StatsServer = require('../').StatsServer;
+
+var server = new StatsServer({
+  host: 'localhost',
+  port: 49494,
+  flushInterval: 1000
+});
+
+server.start()
+
+  .then(function () {
+
+    function terminate() {
+      console.log();
+      server.stop()
+        .catch(function (err) {
+          console.error(err);
+          process.exit(1);
+        });
+    }
+
+    process.on('SIGINT', terminate);
+    process.on('SIGTERM', terminate);
+
+    // server.on('fragment', function (name, period, metrics) {
+    //   console.log('name', name);
+    //   console.log('period', period);
+    //   console.log('metrics', metrics);
+    // });
+
+    server.on('report', function (timestamp, metrics) {
+      console.log('report:', JSON.stringify(metrics, null, 2));
+    });
+
+  })
+
+  .catch(function (err) {
+
+    console.error(err);
+    process.exit(1);
+
+  });

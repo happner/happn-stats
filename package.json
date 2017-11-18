@@ -1,0 +1,32 @@
+{
+  "name": "xstats",
+  "version": "1.0.0",
+  "description": "Lightweight application monitoring.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test",
+    "cover": "istanbul cover _mocha -- test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nomilous/xstats.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nomilous/xstats/issues"
+  },
+  "homepage": "https://github.com/nomilous/xstats#readme",
+  "devDependencies": {
+    "coveralls": "^3.0.0",
+    "expect.js": "^0.3.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "debug": "^3.1.0",
+    "ws": "^3.3.1"
+  }
+}

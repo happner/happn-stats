@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+var StatsClient = require('../').StatsClient;
+
+var client = new StatsClient({
+  host: 'localhost',
+  port: 49494,
+  reportsPerFlush: 5
+});
+
+setInterval(function () {
+
+  client.increment('counter1');
+  client.increment('counter2', 2);
+  client.gauge('gauge', 0.5);
+
+}, 50);
+
+
+
+
+// client.stop();
