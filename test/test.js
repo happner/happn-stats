@@ -5,12 +5,14 @@ var StatsClient = require('../').StatsClient;
 describe('happn-stats', function () {
 
   before('start server', function (done) {
-    this.server = new StatsServer();
+    this.server = new StatsServer({
+      flushInterval: 1000
+    });
     this.server.start().then(done).catch(done);
   });
 
   before('start client', function (done) {
-    this.client = new StatsClient({name: 'xx'});
+    this.client = new StatsClient({ name: 'xx' });
     setTimeout(done, 500);
   });
 
