@@ -28,7 +28,7 @@ The clientside agent. Has methods for incrementing counters and setting gauge va
   * `host` \<string> IP address or hostname of StatsServer (default localhost)
   * `port` \<number> Optional port at which StatsServer is listening (default 49494)
   * `name` \<string> Optional name of this client instance (default untitled).
-* Return \<StatsClient>
+* Returns \<StatsClient>
 
 ### statsClient.stop()
 
