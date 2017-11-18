@@ -8,7 +8,11 @@ describe('happn-stats', function () {
     this.server = new StatsServer({
       reportInterval: 1000
     });
-    this.server.start().then(done).catch(done);
+    this.server.start()
+      .then(function () {
+        done();
+      })
+      .catch(done);
   });
 
   beforeEach(function (done) {

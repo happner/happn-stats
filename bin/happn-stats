@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 
+var path = require('path');
 var commander = require('commander');
+var StatsServer;
+var server;
+var plugins = [];
 
 var program = commander
   .version(require('../package').version)
@@ -12,6 +16,11 @@ var program = commander
 
 program.on('--help', function () {
   console.log('');
+  console.log('');
+  console.log('  Examples:');
+  console.log('');
+  console.log('    $ PLUGIN_SETTING=eg happn-stats -d -p example/plugin');
+  console.log('    $ PLUGIN_SETTING=eg happn-stats -d -p plugin-module-name -p another');
   console.log('');
 });
 
@@ -25,9 +34,10 @@ if (program.debug) {
   }
 }
 
-var StatsServer = require('../').StatsServer;
+// late require: needed after debug setup
+StatsServer = require('../').StatsServer;
 
-var server = new StatsServer({
+server = new StatsServer({
   host: program.host,
   port: program.port,
   reportInterval: program.interval
@@ -36,10 +46,14 @@ var server = new StatsServer({
 server.start()
 
   .then(function () {
-
     function terminate() {
       console.log();
       server.stop()
+        .then(function () {
+          return Promise.all(plugins.map(function (plugin) {
+            return plugin.stop();
+          }));
+        })
         .catch(function (err) {
           console.error(err);
           process.exit(1);
@@ -48,41 +62,38 @@ server.start()
 
     process.on('SIGINT', terminate);
     process.on('SIGTERM', terminate);
-
   })
 
   .then(function () {
-
-
-
+    var promises = [];
+    for (var i = 0; i < program.plugin.length; i++) {
+      promises.push(startPlugin(program.plugin[i]));
+    }
+    return Promise.all(promises);
   })
 
   .catch(function (err) {
-
     console.error(err);
     process.exit(1);
+  });
 
-  })
-
-
-
-
-function startPlugin(path) {
+function startPlugin(moduleName) {
   return new Promise(function (resolve, reject) {
     var Plugin;
 
     try {
-      Plugin = require(path);
+      Plugin = require(moduleName);
     } catch (e) {
       try {
-        Plugin = require(path.resolve(path));
+        Plugin = require(path.resolve(moduleName));
       } catch (e) {
         return reject(e)
       }
     }
 
-    var plugin = new Plugin()
-
+    var plugin = new Plugin(server);
+    plugins.push(plugin);
+    plugin.start().then(resolve).catch(reject);
   });
 }
 
