@@ -131,7 +131,7 @@ describe('happn-stats', function () {
         expect(metrics.gauges.gauge1).to.be(undefined);
 
         expect(metrics.counters.counter2).to.be.greaterThan(120);
-        expect(metrics.counters.counter2).to.be.lessThan(150);
+        expect(metrics.counters.counter2).to.be.lessThan(151);
         expect(metrics.gauges.gauge2).to.be(0.5);
 
         done();
