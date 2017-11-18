@@ -7,7 +7,7 @@ var StatsServer = require('../').StatsServer;
 var server = new StatsServer({
   host: 'localhost',
   port: 49494,
-  flushInterval: 1000
+  reportInterval: 1000
 });
 
 server.start()
@@ -26,14 +26,26 @@ server.start()
     process.on('SIGINT', terminate);
     process.on('SIGTERM', terminate);
 
-    // server.on('fragment', function (name, period, metrics) {
-    //   console.log('name', name);
-    //   console.log('period', period);
-    //   console.log('metrics', metrics);
+    // server.on('fragment', function (fragment) {
+    //   console.log();
+    //   console.log('id', fragment.id);
+    //   console.log('name', fragment.name);
+    //   console.log('remote timestamp', fragment.timestamp);
+    //   console.log('period', fragment.period);
+    //   console.log('metrics', fragment.metrics);
+    //   console.log();
     // });
 
     server.on('report', function (timestamp, metrics) {
-      console.log('report:', JSON.stringify(metrics, null, 2));
+      console.log();
+      console.log(timestamp);
+      for (var name in metrics.gauges) {
+        console.log(name, ':', metrics.gauges[name]);
+      }
+      for (var name in metrics.counters) {
+        console.log(name, ':', metrics.counters[name]);
+      }
+      console.log();
     });
 
   })

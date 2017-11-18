@@ -30,7 +30,7 @@ var StatsServer = require('../').StatsServer;
 var server = new StatsServer({
   host: program.host,
   port: program.port,
-  flushInterval: program.interval
+  reportInterval: program.interval
 });
 
 server.start()

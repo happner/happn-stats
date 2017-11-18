@@ -5,6 +5,7 @@
 var StatsClient = require('../').StatsClient;
 
 var client = new StatsClient({
+  name: 'example-client-' + process.pid,
   host: 'localhost',
   port: 49494,
   reportsPerFlush: 5
