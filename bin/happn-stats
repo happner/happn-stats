@@ -1,0 +1,93 @@
+#!/usr/bin/env node
+
+var commander = require('commander');
+
+var program = commander
+  .version(require('../package').version)
+  .option('-d, --debug', 'show debug output')
+  .option('-H, --host <addr>', 'assign hostname to listen, default 0.0.0.0')
+  .option('-P, --port <port>', 'assign port to listen, default 49494')
+  .option('-i, --interval <ms>', 'assign report interval, default 10000')
+  .option('-p, --plugin <node-module>', 'use a plugin', collect, []);
+
+program.on('--help', function () {
+  console.log('');
+  console.log('');
+});
+
+program.parse(process.argv);
+
+if (program.debug) {
+  if (process.env.DEBUG) {
+    process.env.DEBUG += ',happn-stats:*';
+  } else {
+    process.env.DEBUG = 'happn-stats:*';
+  }
+}
+
+var StatsServer = require('../').StatsServer;
+
+var server = new StatsServer({
+  host: program.host,
+  port: program.port,
+  flushInterval: program.interval
+});
+
+server.start()
+
+  .then(function () {
+
+    function terminate() {
+      console.log();
+      server.stop()
+        .catch(function (err) {
+          console.error(err);
+          process.exit(1);
+        });
+    }
+
+    process.on('SIGINT', terminate);
+    process.on('SIGTERM', terminate);
+
+  })
+
+  .then(function () {
+
+
+
+  })
+
+  .catch(function (err) {
+
+    console.error(err);
+    process.exit(1);
+
+  })
+
+
+
+
+function startPlugin(path) {
+  return new Promise(function (resolve, reject) {
+    var Plugin;
+
+    try {
+      Plugin = require(path);
+    } catch (e) {
+      try {
+        Plugin = require(path.resolve(path));
+      } catch (e) {
+        return reject(e)
+      }
+    }
+
+    var plugin = new Plugin()
+
+  });
+}
+
+
+function collect(val, array) {
+  array.push(val);
+  return array;
+}

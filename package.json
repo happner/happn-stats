@@ -1,23 +1,26 @@
 {
-  "name": "xstats",
+  "name": "happn-stats",
   "version": "1.0.0",
   "description": "Lightweight application monitoring.",
   "main": "index.js",
+  "bin": {
+    "happn-stats": "bin/happn-stats"
+  },
   "scripts": {
     "test": "mocha test",
     "cover": "istanbul cover _mocha -- test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nomilous/xstats.git"
+    "url": "git+https://github.com/happner/happn-stats.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nomilous/xstats/issues"
+    "url": "https://github.com/happner/happn-stats/issues"
   },
-  "homepage": "https://github.com/nomilous/xstats#readme",
+  "homepage": "https://github.com/happner/happn-stats#readme",
   "devDependencies": {
     "coveralls": "^3.0.0",
     "expect.js": "^0.3.1",
@@ -26,6 +29,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "commander": "^2.11.0",
     "debug": "^3.1.0",
     "ws": "^3.3.1"
   }

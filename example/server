@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+// DEBUG=happn-stats* example/server
+
 var StatsServer = require('../').StatsServer;
 
 var server = new StatsServer({

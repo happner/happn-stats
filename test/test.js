@@ -2,7 +2,7 @@ var expect = require('expect.js');
 var StatsServer = require('../').StatsServer;
 var StatsClient = require('../').StatsClient;
 
-describe('xstats', function () {
+describe('happn-stats', function () {
 
   before('start server', function (done) {
     this.server = new StatsServer();
