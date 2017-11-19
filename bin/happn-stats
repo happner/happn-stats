@@ -12,6 +12,7 @@ var program = commander
   .option('-H, --host <addr>', 'assign hostname to listen, default 0.0.0.0')
   .option('-P, --port <port>', 'assign port to listen, default 49494')
   .option('-i, --interval <ms>', 'assign report interval, default 10000')
+  .option('-f, --fragments <num>', 'assign fragments per report interval, default 5')
   .option('-p, --plugin <node-module>', 'use a plugin', collect, []);
 
 program.on('--help', function () {
@@ -40,7 +41,8 @@ StatsServer = require('../').StatsServer;
 server = new StatsServer({
   host: program.host,
   port: program.port,
-  reportInterval: program.interval
+  reportInterval: program.interval,
+  fragmentsPerReport: program.fragments  
 });
 
 server.start()
