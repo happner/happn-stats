@@ -3,8 +3,8 @@ module.exports = ExamplePlugin;
 
 var debug = require('debug')('happn-stats:example-plugin');
 
-function ExamplePlugin(server) {
-  this.server = server;
+function ExamplePlugin(happnStatsServer) {
+  this.happnStatsServer = happnStatsServer;
 }
 
 ExamplePlugin.prototype.start = function () {
@@ -12,8 +12,16 @@ ExamplePlugin.prototype.start = function () {
   return new Promise(function (resolve, reject) {
     debug('start');
 
-    _this.server.on('report', function (timestamp, metrics) {
-      console.log(timestamp, metrics);
+    _this.happnStatsServer.on('report', function (timestamp, metrics) {
+      console.log();
+      console.log(timestamp);
+      for (var name in metrics.gauges) {
+        console.log(name, ':', metrics.gauges[name]);
+      }
+      for (var name in metrics.counters) {
+        console.log(name, ':', metrics.counters[name]);
+      }
+      console.log();
     });
 
     resolve();
