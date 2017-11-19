@@ -4,9 +4,10 @@
 
 Lightweight application monitoring. Works with all versions of nodejs.
 
-Includes CLI with plugin functionality.
+Includes CLI with plugin functionality. See `example/plugin` or [happn-stats-elasticsearch](https://github.com/happner/happn-stats-elasticsearch).
 
 ```
+npm install happn-stats --global
 happn-stats -h
 ```
 
