@@ -105,7 +105,7 @@ This event is emitted with every metrics fragment arriving from the each client.
 
 ### statsServer.start()
 
-* Returns \<Promise> Resolve with server instance.
+* Returns \<Promise> Resolves with server instance.
 
 Start the server.
 
