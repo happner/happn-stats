@@ -21,7 +21,7 @@ const StatsServer = happnStats.StatsServer;
 
 ## class StatsClient
 
-The clientside agent. Has methods for incrementing counters and setting gauge values to be sent to [StatsServer](#class-statsserver) instance.
+This is the clientside metrics collection agent. It has methods for incrementing counters and setting gauge values to be sent to [StatsServer](#class-statsserver) instance.
 
 ### new StatsClient([options])
 
@@ -61,21 +61,22 @@ const statsClient = new StatsClient({
 statsClient.increment('counter_name');
 statsClient.gauge('gauge_name', 0.5);
 
-// statsClient.stop();
+// at app shutdown
+statsClient.stop();
 ```
 
 
 
 ## class StatsServer
 
-The serverside. Aggregates and reports in counter and gauges metrics from all connected clients.
+This is the serverside metrics collection and aggregation agent. It reports counter and gauge metrics from all connected clients.
 
 ### new StatsServer([options])
 
 * `options`
   * `host` \<string> Optional address to listen (default 0.0.0.0)
   * `port` \<number> Optional port to listen (default 49494)
-  * `reportInterval` \<number> Optional interval in milliseconds to emit report (default 10000)
+  * `reportInterval` \<number> Optional interval in milliseconds to emit reports (default 10000)
   * `fragmentsPerReport` \<number> Optional fragments per report interval (default 5)
 * Returns \<StatsServer>
 
