@@ -1,6 +1,6 @@
 {
   "name": "happn-stats",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Lightweight application monitoring.",
   "main": "index.js",
   "bin": {
