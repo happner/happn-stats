@@ -2,6 +2,7 @@
 
 var path = require('path');
 var commander = require('commander');
+var Promise = global.Promise || require('bluebird');
 var StatsServer;
 var server;
 var plugins = [];
@@ -42,7 +43,7 @@ server = new StatsServer({
   host: program.host,
   port: program.port,
   reportInterval: program.interval,
-  fragmentsPerReport: program.fragments  
+  fragmentsPerReport: program.fragments
 });
 
 server.start()
