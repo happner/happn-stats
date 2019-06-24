@@ -1,6 +1,6 @@
 {
   "name": "happn-stats",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Lightweight application monitoring.",
   "main": "index.js",
   "bin": {
@@ -32,6 +32,6 @@
     "commander": "^2.11.0",
     "debug": "^2.0.0",
     "shortid": "^2.2.8",
-    "ws": "^1.0.0"
+    "ws": "^7.0.1"
   }
 }
