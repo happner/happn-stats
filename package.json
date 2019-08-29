@@ -1,6 +1,6 @@
 {
   "name": "happn-stats",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Lightweight application monitoring.",
   "main": "index.js",
   "bin": {
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "mocha test",
-    "cover": "istanbul cover _mocha -- test"
+    "cover": "istanbul cover _mocha -- test",
+    "release": "rm -rf node_modules && rm -f package-lock.json && npm install && npm run cover"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,6 @@
     "commander": "^2.11.0",
     "debug": "^2.0.0",
     "shortid": "^2.2.8",
-    "ws": "^7.0.1"
+    "ws": "6.1.4"
   }
 }
